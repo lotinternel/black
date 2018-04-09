@@ -4,3 +4,4 @@ composer.lock
 thinkphp
 .env
 /public/uploads/*
+.buildpath
