@@ -122,13 +122,15 @@ EOD;
 			$menuarr=$worker->getmenubygroupid($res['group']);
 			if(Config::get('app_debug')){
 				$fileapi=HTTP_SERVER.'/fileapi/';
+				$ueapi=HTTP_SERVER.'/fileapi/';
 			}else{
-				$fileapi=HTTPS_SERVER.'/fileapi/';
+				$fileapi=HTTPS_SERVER.'/ueapi/';
+				$ueapi=HTTP_SERVERS.'/ueapi/';
 			}
 			
 			
 			//$decoded = JWT::decode($jwt, $key, array('HS256'));
-			msgput(true, null, 0,array('token'=>$jwt,'menu'=>$menuarr,'fileapi'=>$fileapi));
+			msgput(true, null, 0,array('token'=>$jwt,'menu'=>$menuarr,'fileapi'=>$fileapi,'ueapi'=>$ueapi));
 		}else{
 			$msg=lang('pass_error');
 			msgput(false, $msg, 2);
