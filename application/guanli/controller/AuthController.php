@@ -122,7 +122,7 @@ EOD;
 			$menuarr=$worker->getmenubygroupid($res['group']);
 			if(Config::get('app_debug')){
 				$fileapi=HTTP_SERVER.'/fileapi/';
-				$ueapi=HTTP_SERVER.'/fileapi/';
+				$ueapi=HTTP_SERVER.'/ueapi/';
 			}else{
 				$fileapi=HTTPS_SERVER.'/ueapi/';
 				$ueapi=HTTP_SERVERS.'/ueapi/';
