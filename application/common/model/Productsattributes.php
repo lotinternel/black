@@ -6,7 +6,7 @@ use think\Db;
 
 class Productsattributes extends Model
 {
-	 protected $table = TABLE_CATEGORIES_DESCRIPTION;
+	 protected $table = TABLE_PRODUCTSATTRIBUTES;
 	 
 	
 	

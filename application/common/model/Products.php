@@ -82,6 +82,8 @@ class Products extends Model
  				$res['full_products_image']=HTTP_SERVER.'/'.DIR_WS_IMAGES.$res['products_image'];
  			}
  		}
+ 		//获取产品属性
+ 		
  	}
  	return $res;
  }
