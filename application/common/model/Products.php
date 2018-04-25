@@ -83,6 +83,8 @@ class Products extends Model
  			}
  		}
  		//获取产品属性
+ 		$productattributes=new Productsattributes();
+ 		
  		
  	}
  	return $res;
