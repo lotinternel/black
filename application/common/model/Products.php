@@ -86,6 +86,7 @@ class Products extends Model
  		$productattributes=new Productsattributes();
  		
  		
+ 		
  	}
  	return $res;
  }
