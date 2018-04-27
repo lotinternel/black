@@ -82,6 +82,7 @@ class Products extends Model
  				$res['full_products_image']=HTTP_SERVER.'/'.DIR_WS_IMAGES.$res['products_image'];
  			}
  		}
+
  		//取产品小图
  		$productimage=new Productimage();
  		$imagearr=$productimage->field('id as image_id,image,num')->where('product_id',$id)->select();
@@ -91,6 +92,13 @@ class Products extends Model
  			}
  			$res['image_list']=$imagearr;
  		} 		
+
+ 		//获取产品属性
+ 		$productattributes=new Productsattributes();
+ 		
+ 		
+ 		
+
  	}
  	return $res;
  }

@@ -9,6 +9,8 @@ define('TABLE_PRODUCTS_DESCRIPTION' , TABLE_PREFIX.'products_description');
 define('TABLE_CATEGORIES' , TABLE_PREFIX.'categories');
 define('TABLE_CATEGORIES_DESCRIPTION' , TABLE_PREFIX.'categories_description');
 define('TABLE_PRODUCTIMAGE' , TABLE_PREFIX.'product_image');
+define('TABLE_PRODUCTSATTRIBUTES' , TABLE_PREFIX.'productsattributes');
+
  
 
  
