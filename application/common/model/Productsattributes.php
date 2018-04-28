@@ -12,6 +12,7 @@ class Productsattributes extends Model
 	 * 通过产品id获取产品属性
 	 * */
 	public  function getproattr($id){
-		Db::table($this->table)->where('products_id',$id)->select();
+		$list=Db::table($this->table)->alias('pa')->where('products_id',$id)->join(TABLE_PRODUCTSOPTIONS.' pp','pa.options_id=pp.products_options_id','left')->select();
+	return $list;
 	}
 }
