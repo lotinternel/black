@@ -11,8 +11,8 @@ define('TABLE_CATEGORIES_DESCRIPTION' , TABLE_PREFIX.'categories_description');
 define('TABLE_PRODUCTIMAGE' , TABLE_PREFIX.'product_image');
 define('TABLE_PRODUCTSATTRIBUTES' , TABLE_PREFIX.'products_attributes');
 define('TABLE_PRODUCTSOPTIONS' , TABLE_PREFIX.'products_options');
- 
-
+define('TABLE_PRODUCTSOPTIONSVALUES' , TABLE_PREFIX.'products_options_values'); 
+define('TABLE_PRODUCTSOPTIONSTYPES' , TABLE_PREFIX.'products_options_types');
  
  
  

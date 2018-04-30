@@ -96,7 +96,7 @@ class Products extends Model
  		//获取产品属性
  		$productattributes=new Productsattributes();
  		$attrlist=$productattributes->getproattr($id);
- 		print_r($attrlist);exit();
+ 		$res['attr']=$attrlist;
  		
 
  	}
