@@ -85,7 +85,7 @@ class Products extends Model
 
  		//取产品小图
  		$productimage=new Productimage();
- 		$imagearr=$productimage->field('id as image_id,image,num')->where('product_id',$id)->select();
+ 		$imagearr=$productimage->field(array('id'=>'image_id','image','num'))->where('product_id',$id)->select();
  		if($imagearr){
  			foreach($imagearr as $key=>&$val){
  				$val['fullurl']=CDNDOMAIN.$val['image'];
