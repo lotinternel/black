@@ -58,6 +58,18 @@ class ProductsController extends BasicController {
 		msgput(true,null,0,$result);
 		
 	}
+	/**
+	 * 更新产品属性
+	 * */
+	public function updateproattr(){
+		$pid = input ( '?post.pid' ) && input ( 'post.pid' ) ? input ( 'post.pid' ) : 0;//产品id
+		$attrid = input ( '?post.attrid' ) && input ( 'post.attrid' ) ? input ( 'post.attrid' ) : 0;
+		if(!$pid||!$attrid){
+			msgput(false,lang('require_param'),1);
+		}
+		
+		
+	}
 }
 
 ?>

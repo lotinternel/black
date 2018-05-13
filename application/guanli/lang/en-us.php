@@ -5,4 +5,5 @@ return [
 	'login_expire'=>'login has expire',
 	'no_token'=>'not have token',
 	'invalid_token'=>'token invalid',
+	'require_param'=>'requier param is empty',
 ];
