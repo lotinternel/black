@@ -64,13 +64,13 @@ class ProductsController extends BasicController {
 	 * */
 	public function delproattr(){
 		$pid = input ( '?post.pid' ) && input ( 'post.pid' ) ? (int)input ( 'post.pid' ) : 0;//产品id
-		$attrid = input ( '?post.attrid' ) && input ( 'post.attrid' ) ? (int)input ( 'post.attrid' ) : 0;
-		if(!$pid||!$attrid){
+		$attid = input ( '?post.attid' ) && input ( 'post.attid' ) ? (int)input ( 'post.attid' ) : 0;
+		if(!$pid||!$attid){
 			msgput(false,lang('require_param'),1);
 		}
-		
+		msgput(true);
 		$proamodel=new ProductsAttributes();
-		$proamodel->delproattr($pid, $attrid);//删除产品属性
+		$proamodel->delproattr($pid, $attid);//删除产品属性
 		msgput(true);
 	}
 }
