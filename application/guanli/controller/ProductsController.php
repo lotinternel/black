@@ -5,6 +5,7 @@ namespace app\guanli\controller;
 use app\guanli\controller\BasicController;
 use app\common\model\Products;
 use app\common\model\Categories;
+use app\common\model\ProductsAttributes;
 use think\Request;
 
 class ProductsController extends BasicController {
@@ -59,16 +60,18 @@ class ProductsController extends BasicController {
 		
 	}
 	/**
-	 * 更新产品属性
+	 * 删除产品属性
 	 * */
-	public function updateproattr(){
-		$pid = input ( '?post.pid' ) && input ( 'post.pid' ) ? input ( 'post.pid' ) : 0;//产品id
-		$attrid = input ( '?post.attrid' ) && input ( 'post.attrid' ) ? input ( 'post.attrid' ) : 0;
+	public function delproattr(){
+		$pid = input ( '?post.pid' ) && input ( 'post.pid' ) ? (int)input ( 'post.pid' ) : 0;//产品id
+		$attrid = input ( '?post.attrid' ) && input ( 'post.attrid' ) ? (int)input ( 'post.attrid' ) : 0;
 		if(!$pid||!$attrid){
 			msgput(false,lang('require_param'),1);
 		}
 		
-		
+		$proamodel=new ProductsAttributes();
+		$proamodel->delproattr($pid, $attrid);//删除产品属性
+		msgput(true);
 	}
 }
 

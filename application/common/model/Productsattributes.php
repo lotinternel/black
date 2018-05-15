@@ -4,7 +4,7 @@ namespace app\common\model;
 use think\Model;
 use think\Db;
 
-class Productsattributes extends Model
+class ProductsAttributes extends Model
 {
 	 protected $table = TABLE_PRODUCTSATTRIBUTES;
 	 
@@ -28,5 +28,15 @@ class Productsattributes extends Model
 	
 	return $result;
 	}
+	
+	/**
+	 * 移除产品属性
+	 * @param int $pid products_id 产品ID
+	 * @param int $attid products_attributes_id
+	 * */
+	public function delproattr($pid,$attid){
+		Db::table($this->table)->where('products_id',(int)$pid)->where('products_attributes_id',(int)$attid)->delete();
+	}
+	
 
 }
