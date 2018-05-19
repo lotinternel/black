@@ -64,8 +64,8 @@ class ProductsController extends BasicController {
 	 * */
 	public function delproattr(){
 		$pid = input ( '?post.pid' ) && input ( 'post.pid' ) ? (int)input ( 'post.pid' ) : 0;//产品id
-		$attid = input ( '?post.attid' ) && input ( 'post.attid' ) ? (int)input ( 'post.attid' ) : 0;
-		if(!$pid||!$attid){
+		$attname = input ( '?post.attname' ) && input ( 'post.attname' ) ? input ( 'post.attname' ) : '';
+		if(!$pid||!$attname){
 			msgput(false,lang('require_param'),1);
 		}
 		msgput(true);

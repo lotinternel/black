@@ -23,9 +23,15 @@ class ProductsAttributes extends Model
 				$val['fullimage']=null;
 			}
 	
-		$result[$val['products_options_name']][]=$val;
+		$result['attrlist'][$val['options_id']][]=$val;
+		$result['optlist'][$val['options_id']]=$val['products_options_name'];
 	}
 	
+	//处理options
+// 	$result['optlist']=array();
+// 	foreach($result['attrlist'] as $k=>$v ){
+// 		$result['optlist'][$result['optlist']]
+// 	}
 	return $result;
 	}
 	
@@ -37,6 +43,16 @@ class ProductsAttributes extends Model
 	public function delproattr($pid,$attid){
 		Db::table($this->table)->where('products_id',(int)$pid)->where('products_attributes_id',(int)$attid)->delete();
 	}
+	
+	/**
+	 * 通过属性option name删除相关属性
+	 * @param unknown $pid
+	 * @param unknown $sname
+	 */
+	public function delattrbyname($pid,$sname){
+		
+	}
+	
 	
 
 }
