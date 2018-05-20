@@ -39,20 +39,24 @@ class ProductsAttributes extends Model
 	 * 移除产品属性
 	 * @param int $pid products_id 产品ID
 	 * @param int $attid products_attributes_id
+	 * 
 	 * */
 	public function delproattr($pid,$attid){
-		Db::table($this->table)->where('products_id',(int)$pid)->where('products_attributes_id',(int)$attid)->delete();
+		Db::table($this->table)->where('products_id',(int)$pid)->where('options_id',(int)$attid)->delete();
+	return true;
 	}
 	
+
 	/**
-	 * 通过属性option name删除相关属性
-	 * @param unknown $pid
-	 * @param unknown $sname
-	 */
-	public function delattrbyname($pid,$sname){
+	 *删除产品属性值 
+	 *@param int $pid product id 产品id
+	 *@param int $options_values_id 产品值id
+	 * */
+	public function delprovalues($pid, $options_values_id){
+		Db::table($this->table)->where('products_id',(int)$pid)->where('options_values_id',(int)$options_values_id)->delete();
+		return true;
 		
 	}
-	
 	
 
 }

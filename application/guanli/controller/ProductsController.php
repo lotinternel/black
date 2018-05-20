@@ -64,13 +64,23 @@ class ProductsController extends BasicController {
 	 * */
 	public function delproattr(){
 		$pid = input ( '?post.pid' ) && input ( 'post.pid' ) ? (int)input ( 'post.pid' ) : 0;//产品id
-		$attname = input ( '?post.attname' ) && input ( 'post.attname' ) ? input ( 'post.attname' ) : '';
-		if(!$pid||!$attname){
+		$options_id = input ( '?post.options_id' ) && input ( 'post.options_id' ) ? (int)input ( 'post.options_id' ) : 0;
+		if(!$pid||!$options_id){
 			msgput(false,lang('require_param'),1);
 		}
-		msgput(true);
+		
 		$proamodel=new ProductsAttributes();
-		$proamodel->delproattr($pid, $attid);//删除产品属性
+		$proamodel->delproattr($pid, $options_id);//删除产品属性
+		msgput(true);
+	}
+	/**
+	 * 删除产品子属性
+	 */
+	public function delproattritem(){
+		$pid = input ( '?post.pid' ) && input ( 'post.pid' ) ? (int)input ( 'post.pid' ) : 0;//产品id
+		$options_values_id = input ( '?post.options_values_id' ) && input ( 'post.options_values_id' ) ? (int)input ( 'post.options_values_id' ) : 0;
+		$proamodel=new ProductsAttributes();
+		$proamodel->delprovalues($pid, $options_values_id);//删除产品属性
 		msgput(true);
 	}
 }
