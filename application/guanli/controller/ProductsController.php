@@ -79,9 +79,30 @@ class ProductsController extends BasicController {
 	public function delproattritem(){
 		$pid = input ( '?post.pid' ) && input ( 'post.pid' ) ? (int)input ( 'post.pid' ) : 0;//产品id
 		$options_values_id = input ( '?post.options_values_id' ) && input ( 'post.options_values_id' ) ? (int)input ( 'post.options_values_id' ) : 0;
+		if(!$pid||!$options_values_id){
+			msgput(false,lang('require_param'),1);
+		}
 		$proamodel=new ProductsAttributes();
 		$proamodel->delprovalues($pid, $options_values_id);//删除产品属性
 		msgput(true);
+	}
+	/**
+	 * 配置属性图片
+	 * 
+	 */
+	public function setattrimg(){
+		$pid = input ( '?post.pid' ) && input ( 'post.pid' ) ? (int)input ( 'post.pid' ) : 0;//产品id
+		$options_values_id = input ( '?post.options_values_id' ) && input ( 'post.options_values_id' ) ? (int)input ( 'post.options_values_id' ) : 0;
+		$imgsrc=input ( '?post.imgsrc' ) && input ( 'post.imgsrc' ) ? (int)input ( 'post.imgsrc' ) : null;
+		if(!$pid||!$options_values_id){
+			msgput(false,lang('require_param'),1);
+		}
+		if(!$imgsrc){
+			msgput(false,lang('img param is null'),2);
+		}
+		
+		$proamodel=new ProductsAttributes();
+		
 	}
 }
 
