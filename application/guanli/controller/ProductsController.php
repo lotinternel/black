@@ -93,7 +93,7 @@ class ProductsController extends BasicController {
 	public function setattrimg(){
 		$pid = input ( '?post.pid' ) && input ( 'post.pid' ) ? (int)input ( 'post.pid' ) : 0;//产品id
 		$options_values_id = input ( '?post.options_values_id' ) && input ( 'post.options_values_id' ) ? (int)input ( 'post.options_values_id' ) : 0;
-		$imgsrc=input ( '?post.imgsrc' ) && input ( 'post.imgsrc' ) ? (int)input ( 'post.imgsrc' ) : null;
+		$imgsrc=input ( '?post.imgsrc' ) && input ( 'post.imgsrc' ) ? input ( 'post.imgsrc' ) : null;
 		if(!$pid||!$options_values_id){
 			msgput(false,lang('require_param'),1);
 		}
