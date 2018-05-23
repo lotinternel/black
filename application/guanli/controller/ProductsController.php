@@ -102,7 +102,9 @@ class ProductsController extends BasicController {
 		}
 		
 		$proamodel=new ProductsAttributes();
+		$proamodel->updateproimg($pid,$options_values_id,$imgsrc);
 		
+		msgput(true);
 	}
 }
 

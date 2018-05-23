@@ -18,7 +18,12 @@ class ProductsAttributes extends Model
 		
 	
 			if($val['attributes_image']){
-				$val['fullimage']=HTTPS_SERVER.'/'.DIR_WS_IMAGES.$val['attributes_image'];
+				if(ENABLE_SSL){
+					$val['fullimage']=HTTPS_SERVER.'/'.DIR_WS_IMAGES.$val['attributes_image'];
+				}else{
+					$val['fullimage']=HTTP_SERVER.'/'.DIR_WS_IMAGES.$val['attributes_image'];
+				}
+			
 			}else{
 				$val['fullimage']=null;
 			}
@@ -65,8 +70,8 @@ class ProductsAttributes extends Model
 	 * @param string $imgsrc 图片地址
 	 */
 	public function updateproimg($pid,$option_values_id,$imgsrc){
-		$data=array('attributes_image',$imgsrc);
-		$res=Db::table($this->table)->where('products_id',(int)$pid)->where('options_values_id',(int)$option_values_id)->update($data);
+		$data=array('attributes_image'=>$imgsrc);
+		$res=Db::table($this->table)->where('products_id',(int)$pid)->where('products_attributes_id',(int)$option_values_id)->update($data);
 		return $res;
 	}
 	

@@ -77,7 +77,7 @@ class Products extends Model
  		if($res['products_image']){//返回图像绝对地址
  			
  			if(ENABLE_SSL){
- 			$res['full_products_image']=HTTP_SERVER.'/'.DIR_WS_IMAGES.HTTPS_SERVER.'/'.DIR_WS_IMAGES.$res['products_image'];
+ 			$res['full_products_image']=HTTPS_SERVER.'/'.DIR_WS_IMAGES.HTTPS_SERVER.'/'.DIR_WS_IMAGES.$res['products_image'];
  			}else{
  				$res['full_products_image']=HTTP_SERVER.'/'.DIR_WS_IMAGES.$res['products_image'];
  			}
