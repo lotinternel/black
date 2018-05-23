@@ -65,8 +65,12 @@ class ProductsAttributes extends Model
 	 * @param string $imgsrc 图片地址
 	 */
 	public function updateproimg($pid,$option_values_id,$imgsrc){
-		Db::table($this->table)->where('products_id',(int)$pid)->where('options_values_id',(int)$options_values_id)->update();
+		$data=array('attributes_image',$imgsrc);
+		$res=Db::table($this->table)->where('products_id',(int)$pid)->where('options_values_id',(int)$option_values_id)->update($data);
+		return $res;
 	}
+	
+	
 	
 
 }
