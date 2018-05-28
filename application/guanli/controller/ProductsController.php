@@ -106,6 +106,25 @@ class ProductsController extends BasicController {
 		
 		msgput(true);
 	}
+	/**
+	 * 添加属性值
+	 * @param $_POST['options_values_id'] int 属性option id
+	 * @param $_POST['options_values'] string 属性值
+	 * @param $_POST[pid''] int 产品id
+	 * 
+	 * */
+	public function addoptionvalues(){
+		$pid = input ( '?post.pid' ) && input ( 'post.pid' ) ? (int)input ( 'post.pid' ) : 0;//产品id
+		$options_values = input ( '?post.options_values' ) && input ( 'post.options_values' ) ? input ( 'post.options_values' ) : null;//属性值string
+		$options_values_id=input ( '?post.options_values_id' ) && input ( 'post.options_values_id' ) ? (int)input ( 'post.options_values_id' ) : 0;//产品属性id
+		if(!$pid||!$options_values||!$options_values_id){
+			msgput(false,lang('require_param'),1);
+		}
+		$proamodel=new ProductsAttributes();
+		
+		msgput(true);
+		
+	}
 }
 
 ?>

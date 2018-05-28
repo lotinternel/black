@@ -74,6 +74,15 @@ class ProductsAttributes extends Model
 		$res=Db::table($this->table)->where('products_id',(int)$pid)->where('products_attributes_id',(int)$option_values_id)->update($data);
 		return $res;
 	}
+	/**
+	 * 添加产品属性到属性选项
+	 * @param unknown $pid 产品id
+	 * @param unknown $option_values_id 产品属性选项id
+	 * @param unknown $options_values  产品属性值
+	 */
+	public function addproattrvalue($pid,$option_values_id,$options_values){
+		
+	}
 	
 	
 	
