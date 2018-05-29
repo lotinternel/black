@@ -117,7 +117,8 @@ class ProductsController extends BasicController {
 		$pid = input ( '?post.pid' ) && input ( 'post.pid' ) ? (int)input ( 'post.pid' ) : 0;//产品id
 		$options_values = input ( '?post.options_values' ) && input ( 'post.options_values' ) ? input ( 'post.options_values' ) : null;//属性值string
 		$options_values_id=input ( '?post.options_values_id' ) && input ( 'post.options_values_id' ) ? (int)input ( 'post.options_values_id' ) : 0;//产品属性id
-		if(!$pid||!$options_values||!$options_values_id){
+		$options_values_img=input ( '?post.attributes_image' ) && input ( 'post.attributes_image' ) ? input ( 'post.attributes_image' ) : null;//属性值string
+		if(!$pid||!$options_values||!$options_values_id||!$options_values_img){
 			msgput(false,lang('require_param'),1);
 		}
 		$proamodel=new ProductsAttributes();

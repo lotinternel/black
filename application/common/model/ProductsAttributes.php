@@ -80,7 +80,12 @@ class ProductsAttributes extends Model
 	 * @param unknown $option_values_id 产品属性选项id
 	 * @param unknown $options_values  产品属性值
 	 */
-	public function addproattrvalue($pid,$option_values_id,$options_values){
+	public function addproattrvalue($pid,$options_id,$options_values_id,$options_values_img){
+		$data=array('products_id'=>$pid,
+				'options_id'=>$options_id,
+				'options_values_id'=>$options_values_id,
+				''
+		);
 		
 	}
 	
