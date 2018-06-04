@@ -134,7 +134,7 @@ class ProductsController extends BasicController {
 		$option_values_arr=$proamodel->getoptionvalue($options_values);
 		
 		if($option_values_arr){//如果属性值存在
-			$attributor_id=$proamodel->addproattrvalue($pid,$options_id,$option_values_arr['products_options_values_id'],$options_values_img);
+			$attributor_id=$proamodel->addproattrvalue($pid,$options_id,$option_values_arr['products_options_values_id'],$options_values_img,$attributes_status);
 			$options_values_id=$option_values_arr['products_options_values_id'];
 		}else{
 			$options_values_id=$proamodel->addoptionvalue($options_values);
