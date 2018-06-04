@@ -7,6 +7,7 @@ use think\Db;
 class ProductsAttributes extends Model
 {
 	 protected $table = TABLE_PRODUCTSATTRIBUTES;
+	protected $productsoptionsvalues_table =TABLE_PRODUCTSOPTIONSVALUES;
 	 
 	/**
 	 * 通过产品id获取产品属性
@@ -85,13 +86,44 @@ class ProductsAttributes extends Model
 	 * @param unknown $option_values_id 产品属性选项id
 	 * @param unknown $options_values  产品属性值
 	 */
-	public function addproattrvalue($pid,$options_id,$options_values_id,$options_values_img){
+	public function addproattrvalue($pid,$options_id,$options_values_id,$attributes_img,$attributes_status=1){
 		$data=array('products_id'=>$pid,
 				'options_id'=>$options_id,
 				'options_values_id'=>$options_values_id,
-				''
+				'attributes_image'=>$attributes_img,
+				'attributes_status'=>$attributes_status
 		);
+		$res=Db::table($this->table)->where($data)->find();
 		
+		if(!$res){//如果不存在
+			
+			$result=Db::table($this->table)->insertGetId($data);
+			return $result;
+		}
+	
+		return $res['products_attributes_id'];
+	}
+	/**
+	 * 判断属性值是否存在
+	 * @param string $vales_name 属性值名
+	 * @return array 属性值数组
+	 */
+	public function getoptionvalue($vales_name){
+		$data=array('products_options_values_name'=>$vales_name);
+		$res=Db::table($this->productsoptionsvalues_table)->where($data)->find();
+		return $res;
+	}
+	/**
+	 * 添加属性值
+	 * @param unknown $values_name
+	 * @param number $language_id
+	 */
+	public function addoptionvalue($values_name,$language_id=1){
+		$maxproductvalue_id=Db::table($this->productsoptionsvalues_table)->max('products_options_values_id');
+		$products_options_values_id=$maxproductvalue_id+1;
+		$data=array('products_options_values_id'=>$products_options_values_id,'language_id'=>$language_id,'products_options_values_name'=>$values_name);
+		$res=Db::table($this->productsoptionsvalues_table)->insertGetId($data);
+		return $res;
 	}
 	
 	

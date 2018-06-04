@@ -116,15 +116,27 @@ class ProductsController extends BasicController {
 	public function addoptionvalues(){
 		$pid = input ( '?post.pid' ) && input ( 'post.pid' ) ? (int)input ( 'post.pid' ) : 0;//产品id
 		$options_values = input ( '?post.options_values' ) && input ( 'post.options_values' ) ? input ( 'post.options_values' ) : null;//属性值string
-		$options_values_id=input ( '?post.options_values_id' ) && input ( 'post.options_values_id' ) ? (int)input ( 'post.options_values_id' ) : 0;//产品属性id
+		$options_id=input ( '?post.options_id' ) && input ( 'post.options_id' ) ? (int)input ( 'post.options_id' ) : 0;//产品属性id
 		$options_values_img=input ( '?post.attributes_image' ) && input ( 'post.attributes_image' ) ? input ( 'post.attributes_image' ) : null;//属性值string
-		if(!$pid||!$options_values||!$options_values_id||!$options_values_img){
+		if($options_values_img=='null'){
+			$options_values_img=null;
+		}
+		$attributes_status=input ( '?post.attributes_status' ) && input ( 'post.attributes_status' ) ? (int)input ( 'post.attributes_status' ) : 0;//属性状态
+		if(!$pid||!$options_values||!$options_id){
 			msgput(false,lang('require_param'),1);
 		}
 		$proamodel=new ProductsAttributes();
+		$option_values_arr=$proamodel->getoptionvalue($options_values);
 		
-		msgput(true);
-		
+		if($option_values_arr){//如果属性值存在
+			$attributor_id=$proamodel->addproattrvalue($pid,$options_id,$option_values_arr['products_options_values_id'],$options_values_img);
+			$options_values_id=$option_values_arr['products_options_values_id'];
+		}else{
+			$options_values_id=$proamodel->addoptionvalue($options_values);
+			$attributor_id=$proamodel->addproattrvalue($pid,$options_id,$options_values_id,$options_values_img,$attributes_status);
+		}
+		$res=array('products_attributes_id'=>$attributor_id,'options_values_id'=>$options_values_id);
+		msgput(true,null,0,$res);		
 	}
 }
 
