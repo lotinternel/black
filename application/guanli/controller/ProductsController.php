@@ -6,6 +6,7 @@ use app\guanli\controller\BasicController;
 use app\common\model\Products;
 use app\common\model\Categories;
 use app\common\model\ProductsAttributes;
+use app\common\model\ProductsOptions;
 use think\Request;
 
 class ProductsController extends BasicController {
@@ -137,6 +138,18 @@ class ProductsController extends BasicController {
 		}
 		$res=array('products_attributes_id'=>$attributor_id,'options_values_id'=>$options_values_id);
 		msgput(true,null,0,$res);		
+	}
+	/**
+	 * 添加选项值
+	 * 
+	 */
+	public function addoption(){
+		$options_values = input ( '?post.options_values' ) && input ( 'post.options_values' ) ? input ( 'post.options_values' ) : null;//选项名称 string
+		$type = input ( '?post.type' ) && input ( 'post.type' ) ? input ( 'post.type' ) : 0;
+		$productoptionsmodel=new ProductsOptions();
+		$option_id=$productoptionsmodel->getoption($options_values,$type);
+		$data=array('products_options_id'=>$option_id);
+		msgput(true,null,0,$data);
 	}
 }
 
