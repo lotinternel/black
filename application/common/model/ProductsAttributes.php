@@ -28,6 +28,11 @@ class ProductsAttributes extends Model
 			}else{
 				$val['fullimage']=null;
 			}
+			if($val['attributes_status']==1){
+				$val['attributes_status']=true;
+			}else{
+				$val['attributes_status']=false;
+			}
 	
 		$result['attrlist'][$val['options_id']][]=$val;
 		$result['optlist'][$val['options_id']]=$val['products_options_name'];
@@ -90,9 +95,10 @@ class ProductsAttributes extends Model
 		);
 		$res=Db::table($this->table)->where($data)->find();
 		
-		if(!$res){//如果不存在
+		if(empty($res)){//如果不存在
 			
 			$result=Db::table($this->table)->insertGetId($data);
+			
 			return $result;
 		}
 	
@@ -117,8 +123,9 @@ class ProductsAttributes extends Model
 		$maxproductvalue_id=Db::table($this->productsoptionsvalues_table)->max('products_options_values_id');
 		$products_options_values_id=$maxproductvalue_id+1;
 		$data=array('products_options_values_id'=>$products_options_values_id,'language_id'=>$language_id,'products_options_values_name'=>$values_name);
-		$res=Db::table($this->productsoptionsvalues_table)->insertGetId($data);
-		return $res;
+		$id=Db::table($this->productsoptionsvalues_table)->insertGetId($data);
+		
+		return $products_options_values_id;
 	}
 	
 	
