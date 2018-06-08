@@ -122,11 +122,17 @@ class ProductsController extends BasicController {
 		if($options_values_img=='null'){
 			$options_values_img=null;
 		}
-		$attributes_status=input ( '?post.attributes_status' ) && input ( 'post.attributes_status' ) ? (int)input ( 'post.attributes_status' ) : 1;//属性状态
+
+		$attributes_status=input ( '?post.attributes_status' ) && input ( 'post.attributes_status' ) ? input ( 'post.attributes_status' ) : 'true';//属性状态
 		if(!$pid||!$options_values||!$options_id){
 			msgput(false,lang('require_param'),1);
 		}
-		
+		if($attributes_status=='true'){
+			$attributes_status=1;
+		}else{
+			$attributes_status=0;
+		}
+
 		$proamodel=new ProductsAttributes();
 		$option_values_arr=$proamodel->getoptionvalue($options_values);
 		

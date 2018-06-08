@@ -15,8 +15,13 @@ class ProductsAttributes extends Model
 	public  function getproattr($id){
 		$list=Db::table($this->table)->alias('pa')->field('pa.products_attributes_id,pa.options_id,pa.options_values_id,pa.attributes_image,pp.products_options_name,po.products_options_values_name,pa.attributes_status,pp.products_options_type,pot.products_options_types_name')->where('products_id',$id)->join(TABLE_PRODUCTSOPTIONS.' pp','pa.options_id=pp.products_options_id','left')->join(TABLE_PRODUCTSOPTIONSVALUES.' po','pa.options_values_id=po.products_options_values_id and po.language_id=1','left')->join(TABLE_PRODUCTSOPTIONSTYPES.' pot','pp.products_options_type=pot.products_options_types_id','left')->order('pa.products_options_sort_order')->select();
 	$result=array();
+ 	
 	foreach($list as $key=>&$val){
-		
+			if($val['attributes_status']==1){
+				$val['attributes_status']=true;
+			}else{
+				$val['attributes_status']=false;
+			}
 	
 			if($val['attributes_image']){
 				if(ENABLE_SSL){
