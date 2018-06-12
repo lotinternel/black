@@ -132,6 +132,15 @@ class ProductsAttributes extends Model
 		
 		return $products_options_values_id;
 	}
+	/**
+	 * 更新产品属性
+	 * @param int $attrid 属性 products_attributes_id
+	 * @param int $status 
+	 */
+	public function updatestatus($attrid,$status){
+		$data=array('attributes_status'=>$status);
+		return Db::table($this->table)->where('products_attributes_id',$attrid)->update($data);
+	}
 	
 	
 	

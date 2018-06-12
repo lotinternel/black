@@ -158,6 +158,25 @@ class ProductsController extends BasicController {
 		$data=array('products_options_id'=>$option_id);
 		msgput(true,null,0,$data);
 	}
+	/**
+	 * 修改产品属性状态
+	 */
+	public function chattrstatus(){
+		$attr = input ( '?post.attr' ) && input ( 'post.attr' ) ? (int)input ( 'post.attr' ) : 0;//选项名称 string
+		$status = input ( '?post.status' ) && input ( 'post.status' ) ? input ( 'post.status' ) : 'true';//状态值
+		if(!$attr){
+			msgput(false,lang('attributor is null'),1);
+		}
+		$attrstatu=1;
+		if($status=='true'){
+			$attrstatu=1;
+		}else{
+			$attrstatu=0;
+		}
+		$proamodel=new ProductsAttributes();
+		$proamodel->updatestatus($attr,$attrstatu);
+		msgput(true);
+	}
 }
 
 ?>
