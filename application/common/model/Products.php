@@ -97,10 +97,23 @@ class Products extends Model
  		$productattributes=new ProductsAttributes();
  		$attrlist=$productattributes->getproattr($id);
  		$res['attr']=$attrlist;
+ 		$mesttagmodel=new MetaTagsProductsDescription();
  		
-
+ 		$metaarr=$mesttagmodel->getmetabypid($id);
+ 		$res['meta']=$metaarr;
  	}
  	return $res;
  }
+ /**
+  * 通过id更新产品基本信息
+  * @param unknown $id
+  * @param unknown $data
+  */
+ public function updateitembyid($id,$data){
+ 	$data['products_last_modified']=array('exp', 'NOW()');
+ 	$this->allowField(['products_type','products_quantity','products_model','products_image','products_price','products_virtual','products_last_modified','products_weight','products_status','master_categories_id','origin_url','commission_rate'])->save($data, ['id' => (int)$id]);
+ 	
+ }
+ 
  
 }

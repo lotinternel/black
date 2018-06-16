@@ -138,7 +138,7 @@ class ProductsAttributes extends Model
 	 * @param int $status 
 	 */
 	public function updatestatus($attrid,$status){
-		$data=array('attributes_status'=>$status);
+		$data=array('attributes_status'=>(int)$status);
 		return Db::table($this->table)->where('products_attributes_id',$attrid)->update($data);
 	}
 	

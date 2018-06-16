@@ -13,7 +13,7 @@ define('TABLE_PRODUCTSATTRIBUTES' , TABLE_PREFIX.'products_attributes');
 define('TABLE_PRODUCTSOPTIONS' , TABLE_PREFIX.'products_options');
 define('TABLE_PRODUCTSOPTIONSVALUES' , TABLE_PREFIX.'products_options_values'); 
 define('TABLE_PRODUCTSOPTIONSTYPES' , TABLE_PREFIX.'products_options_types');
-
+define('TABLE_META_TAGS_PRODUCTS_DESCRIPTION' , TABLE_PREFIX.'meta_tags_products_description');
 
  
  

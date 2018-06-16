@@ -8,6 +8,8 @@ use app\common\model\Categories;
 use app\common\model\ProductsAttributes;
 use app\common\model\ProductsOptions;
 use think\Request;
+use think\Loader;
+use app\guanli\validate\ProductsVali;
 
 class ProductsController extends BasicController {
 
@@ -176,6 +178,30 @@ class ProductsController extends BasicController {
 		$proamodel=new ProductsAttributes();
 		$proamodel->updatestatus($attr,$attrstatu);
 		msgput(true);
+	}
+	/**
+	 * 更新产品
+	 * 
+	 */
+	public function save(){
+		$data = input ( 'post.' );
+		if($data['products_status']=='true'){
+			$data['products_status']=1;
+		}else{
+			$data['products_status']=0;
+		}
+		$validate = Loader::validate('ProductsVali');
+		if(!$validate->check($data)){//验证提交的数据
+			
+			msgPut(false,$validate->getError(),1);
+		}
+		
+		$productmodel=new Products();
+		if(isset($data['products_id'])){//如果存在产品id，更新操作
+			$productmodel->updateitembyid($data['products_id'],$data);
+		}
+		
+		
 	}
 }
 
