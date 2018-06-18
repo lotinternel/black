@@ -72,6 +72,11 @@ class Products extends Model
  	}
  	return 0;
  }
+ /**
+  * 根据产品id获取产品细节
+  * @param unknown $id
+  * @return multitype:
+  */
  public function getdetail($id){
  	$conditionis=array('p.products_id'=>$id);
  	$res=Db::table($this->table)->alias('p')->join(TABLE_PRODUCTS_DESCRIPTION .' pd','p.products_id=pd.products_id and pd.language_id=1')->where( $conditionis )->find(); 	
@@ -121,6 +126,14 @@ class Products extends Model
  	$data['products_last_modified']=array('exp', 'NOW()');
  	$this->allowField(['products_type','products_quantity','products_model','products_image','products_price','products_virtual','products_last_modified','products_weight','products_status','master_categories_id','origin_url','commission_rate'])->save($data, ['id' => (int)$id]);
  	
+ }
+ public function saveitem($data){
+ 	$data['products_date_added']=$data['products_last_modified']=array('exp', 'NOW()');
+ 
+ 	//$this->allowField(['products_type','products_quantity','products_model','products_image','products_price','products_virtual','products_last_modified','products_weight','products_status','master_categories_id','origin_url','commission_rate','products_date_added'])->save($data);
+ 	$this->data($data);
+ 	$this->allowField(['products_type','products_quantity','products_model','products_image','products_price','products_virtual','products_last_modified','products_weight','products_status','master_categories_id','origin_url','commission_rate','products_date_added'])->save();
+ 	return $this->products_id;
  }
 
  

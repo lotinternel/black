@@ -216,6 +216,13 @@ class ProductsController extends BasicController {
 			
 			$productimage->updateimage($data['products_id'],$data['image_list']);
 		}
+		}else{
+			$productid=$productmodel->saveitem($data);//添加产品基本信息
+			if(!$productid){
+				msgPut(false,lang('add_detail_fail'),1);
+			}
+			$data['products_id']=$productid;
+			$productdescmodel->savedesc($data);
 		}
 		
 		msgput(true);

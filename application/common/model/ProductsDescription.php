@@ -16,4 +16,13 @@ class ProductsDescription extends Model
     public function updateitemdesc($id,$data){
     	$this->allowField(['products_name','products_description'])->save($data, ['id' => (int)$id]);
     }
+    
+    public function savedesc($data,$language_id=1){
+    	if(!isset($data['language_id'])){
+    		$data['language_id']=$language_id;
+    	}
+    	$this->data($data);
+    	$this->allowField(['products_id','language_id','products_name','products_description'])->save();
+    	
+    }
 }
