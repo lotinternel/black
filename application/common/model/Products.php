@@ -47,6 +47,14 @@ class Products extends Model
  		}
  	}
  	$result=$querysql->select();
+ 	foreach($result as $k=>&$v){
+ 		if(ENABLE_SSL){
+ 			$v['products_image_url']=HTTPS_SERVER.'/images/'.$v['products_image'];
+ 		}else{
+ 			$v['products_image_url']=HTTP_SERVER.'/images/'.$v['products_image'];
+ 		}
+ 		
+ 	}
  return $result;
  }
  /**
@@ -114,6 +122,7 @@ class Products extends Model
  	$this->allowField(['products_type','products_quantity','products_model','products_image','products_price','products_virtual','products_last_modified','products_weight','products_status','master_categories_id','origin_url','commission_rate'])->save($data, ['id' => (int)$id]);
  	
  }
+
  
  
 }

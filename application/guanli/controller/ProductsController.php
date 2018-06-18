@@ -10,6 +10,10 @@ use app\common\model\ProductsOptions;
 use think\Request;
 use think\Loader;
 use app\guanli\validate\ProductsVali;
+use app\common\model\ProductsDescription;
+use app\common\model\MetaTagsProductsDescription;
+use app\common\model\Productimage;
+use app\common\model\ProductsToCategories;
 
 class ProductsController extends BasicController {
 
@@ -129,7 +133,7 @@ class ProductsController extends BasicController {
 		if(!$pid||!$options_values||!$options_id){
 			msgput(false,lang('require_param'),1);
 		}
-		if($attributes_status=='true'){
+		if($attributes_status=='true'||$attributes_status=='1'){
 			$attributes_status=1;
 		}else{
 			$attributes_status=0;
@@ -197,11 +201,24 @@ class ProductsController extends BasicController {
 		}
 		
 		$productmodel=new Products();
+		$productdescmodel=new ProductsDescription();
+		$metatagsproductdesc=new MetaTagsProductsDescription();
+		$producttocatelogue=new ProductsToCategories();
 		if(isset($data['products_id'])){//如果存在产品id，更新操作
-			$productmodel->updateitembyid($data['products_id'],$data);
+			$productmodel->updateitembyid($data['products_id'],$data);//更新产品基本信息
+			$productdescmodel->updateitemdesc($data['products_id'],$data);//更新产品描述
+			$metatagsproductdesc->updatemetabyid($data['products_id'],$data);//更新产品seo信息
+			
+			$producttocatelogue->updateprocate($data['products_id'],$data['master_categories_id']);
+		
+		if(isset($data['image_list'])){//如果配置了图片列表
+			$productimage=new Productimage();
+			
+			$productimage->updateimage($data['products_id'],$data['image_list']);
+		}
 		}
 		
-		
+		msgput(true);
 	}
 }
 

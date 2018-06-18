@@ -18,4 +18,13 @@ class MetaTagsProductsDescription extends Model
     	return Db::table($this->table)->field('metatags_title,metatags_keywords,metatags_description')->where('products_id',$product_id)->where('language_id',$langid)->find();
     }
     
+    /**
+     * 根据产品id更新产品meta
+     * @param int $id
+     * @param array $meta
+     */
+    public function updatemetabyid($id,$data,$language_id=1){
+    	return $this->allowField(['metatags_title','metatags_keywords','metatags_description'])->save($data, ['id' => (int)$id,'language_id'=>$language_id]);
+    }
+    
 }
