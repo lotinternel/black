@@ -37,6 +37,18 @@ class Productimage extends Model
  	}
  	
  }
+ /**
+  * 保存多条产品图片
+  * @param unknown $list
+  */
+ public function saveproimglist($list){
+ 	$this->saveAll($list);
+//  	foreach($list as $key=>$val){
+//  		Db::table($this->table)
+//  		->data(['name'=>'tp','score'=>1000])
+//  		->insert();
+//  	}
+ }
  
  
 

@@ -26,5 +26,17 @@ class MetaTagsProductsDescription extends Model
     public function updatemetabyid($id,$data,$language_id=1){
     	return $this->allowField(['metatags_title','metatags_keywords','metatags_description'])->save($data, ['id' => (int)$id,'language_id'=>$language_id]);
     }
+    /**
+     * 
+     */
+    public function savemeta($id,$metadata,$language_id=1){
+    	
+    	$resdata=array('products_id'=>(int)$id,'language_id'=>$language_id);
+    	$resdata['metatags_title']=isset($metadata['metatags_title'])?$metadata['metatags_title']:null;
+    	$resdata['metatags_keywords']=isset($metadata['metatags_keywords'])?$metadata['metatags_keywords']:null;
+    	$resdata['metatags_description']=isset($metadata['metatags_description'])?$metadata['metatags_description']:null;
+    	$this->data($data);
+    	return $this->allowField(true)->save();
+    }
     
 }

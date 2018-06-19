@@ -23,6 +23,14 @@ class ProductsToCategories extends Model
 	 		$this->save();//保存新的数据
 	 	
 	 }
+	 /**
+	  * 
+	  */
+	 public function savecatelog($data){
+	 	$this->data($data);
+	 	return $this->allowField(true)->save();
+	 	
+	 }
 	
 
 	

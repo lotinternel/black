@@ -127,6 +127,10 @@ class Products extends Model
  	$this->allowField(['products_type','products_quantity','products_model','products_image','products_price','products_virtual','products_last_modified','products_weight','products_status','master_categories_id','origin_url','commission_rate'])->save($data, ['id' => (int)$id]);
  	
  }
+ /**
+  * 保存产品基本信息
+  * @param array $data
+  */
  public function saveitem($data){
  	$data['products_date_added']=$data['products_last_modified']=array('exp', 'NOW()');
  
@@ -135,6 +139,18 @@ class Products extends Model
  	$this->allowField(['products_type','products_quantity','products_model','products_image','products_price','products_virtual','products_last_modified','products_weight','products_status','master_categories_id','origin_url','commission_rate','products_date_added'])->save();
  	return $this->products_id;
  }
+ /**
+  * 按一定规则生成模型
+  * @return string $full model名称
+  */
+ public function makemodel(){
+ 	$pre='M_';
+ 	$mid=time();
+ 	$lat='_'.rand(1,99);
+ 	$full=$pre.$mid.$lat;
+ 	return $full;
+ }
+ 
 
  
  

@@ -204,10 +204,11 @@ class ProductsController extends BasicController {
 		$productdescmodel=new ProductsDescription();
 		$metatagsproductdesc=new MetaTagsProductsDescription();
 		$producttocatelogue=new ProductsToCategories();
+	
 		if(isset($data['products_id'])){//如果存在产品id，更新操作
 			$productmodel->updateitembyid($data['products_id'],$data);//更新产品基本信息
 			$productdescmodel->updateitemdesc($data['products_id'],$data);//更新产品描述
-			$metatagsproductdesc->updatemetabyid($data['products_id'],$data);//更新产品seo信息
+			$metatagsproductdesc->updatemetabyid($data['products_id'],$data['meta']);//更新产品seo信息
 			
 			$producttocatelogue->updateprocate($data['products_id'],$data['master_categories_id']);
 		
@@ -217,15 +218,26 @@ class ProductsController extends BasicController {
 			$productimage->updateimage($data['products_id'],$data['image_list']);
 		}
 		}else{
+			if(!isset($data['products_model'])||!$data['products_model']){//如果不存在model则配置model
+				$data['products_model']=$productmodel->makemodel();
+			}
 			$productid=$productmodel->saveitem($data);//添加产品基本信息
 			if(!$productid){
 				msgPut(false,lang('add_detail_fail'),1);
 			}
 			$data['products_id']=$productid;
+			$data['language_id']=1;
 			$productdescmodel->savedesc($data);
+			
+			$metatagsproductdesc->savemeta($data);
+			$producttocatelogue->updateprocate($data['products_id'],$data['master_categories_id']);
+			if(isset($data['image_list'])){//如果配置图片
+				$productimage=new Productimage();
+				$productimage->updateimage($data['products_id'],$data['image_list']);//保存多条产品图片数据
+			}
 		}
-		
-		msgput(true);
+		$res=array('products_id'=>$data['products_id']);
+		msgput(true,null,0,$res);
 	}
 }
 
