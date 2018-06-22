@@ -14,6 +14,7 @@ use app\common\model\ProductsDescription;
 use app\common\model\MetaTagsProductsDescription;
 use app\common\model\Productimage;
 use app\common\model\ProductsToCategories;
+use think\Log;
 
 class ProductsController extends BasicController {
 
@@ -189,7 +190,7 @@ class ProductsController extends BasicController {
 	 */
 	public function save(){
 		$data = input ( 'post.' );
-		if($data['products_status']=='true'){
+		if(isset($data['products_status'])&&$data['products_status']=='true'){
 			$data['products_status']=1;
 		}else{
 			$data['products_status']=0;
@@ -199,7 +200,7 @@ class ProductsController extends BasicController {
 			
 			msgPut(false,$validate->getError(),1);
 		}
-		
+		Log::record(var_export($data, true));
 		$productmodel=new Products();
 		$productdescmodel=new ProductsDescription();
 		$metatagsproductdesc=new MetaTagsProductsDescription();
@@ -218,8 +219,12 @@ class ProductsController extends BasicController {
 			$productimage->updateimage($data['products_id'],$data['image_list']);
 		}
 		}else{
+			
 			if(!isset($data['products_model'])||!$data['products_model']){//如果不存在model则配置model
 				$data['products_model']=$productmodel->makemodel();
+			}
+			if(!isset($data['commission_rate'])||!$data['commission_rate']){
+				$data['commission_rate']=10;
 			}
 			$productid=$productmodel->saveitem($data);//添加产品基本信息
 			if(!$productid){
@@ -229,7 +234,7 @@ class ProductsController extends BasicController {
 			$data['language_id']=1;
 			$productdescmodel->savedesc($data);
 			
-			$metatagsproductdesc->savemeta($data);
+			$metatagsproductdesc->savemeta($data['products_id'],$data['meta']);
 			$producttocatelogue->updateprocate($data['products_id'],$data['master_categories_id']);
 			if(isset($data['image_list'])){//如果配置图片
 				$productimage=new Productimage();

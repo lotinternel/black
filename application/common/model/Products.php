@@ -101,7 +101,7 @@ class Products extends Model
  		$imagearr=$productimage->field(array('id'=>'image_id','image','num'))->where('product_id',$id)->select();
  		if($imagearr){
  			foreach($imagearr as $key=>&$val){
- 				$val['fullurl']=CDNDOMAIN.$val['image'];
+ 				$val['fullurl']=CDNDOMAIN.'images'.$val['image'];
  			}
  			$res['image_list']=$imagearr;
  		} 		

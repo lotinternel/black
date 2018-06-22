@@ -3,6 +3,7 @@ namespace app\common\model;
 
 use think\Model;
 use think\Db;
+use think\Log;
 
 class Productimage extends Model
 {
@@ -25,6 +26,7 @@ class Productimage extends Model
  			$this::destroy(['id' => $val['id']]);
  		}
  	}
+ 	Log::record(var_export($imagedata, true));
  	foreach($imagedata as $a=>$b){
  		$res=$this->where('image',$b['image'])->find();
  		if($res){//存在就更新num
@@ -32,7 +34,9 @@ class Productimage extends Model
  					'num' =>$b['num']
  					],['id' => $res['id']]);
  		}else{//不存在就添加
- 			$this->data(['product_id'=>$id,'image'=>$b['image'],'num'=>$b['num']])->isUpdate(false)->save();
+ 			$insertdata=['product_id'=>$id,'image'=>$b['image'],'num'=>$b['num']];
+ 			Log::record(var_export($insertdata, true));
+ 			$this->data($insertdata)->isUpdate(false)->save();
  		}
  	}
  	

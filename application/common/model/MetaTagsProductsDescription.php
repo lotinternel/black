@@ -35,7 +35,7 @@ class MetaTagsProductsDescription extends Model
     	$resdata['metatags_title']=isset($metadata['metatags_title'])?$metadata['metatags_title']:null;
     	$resdata['metatags_keywords']=isset($metadata['metatags_keywords'])?$metadata['metatags_keywords']:null;
     	$resdata['metatags_description']=isset($metadata['metatags_description'])?$metadata['metatags_description']:null;
-    	$this->data($data);
+    	$this->data($resdata);
     	return $this->allowField(true)->save();
     }
     
