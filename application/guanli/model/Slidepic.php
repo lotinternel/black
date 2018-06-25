@@ -8,6 +8,7 @@ class Slidepic extends Model
 {
 	
  protected $table = TABLE_SLIDEPIC;
+ protected $searchtype=array('alt','name');
  
 /**
   * 返回列表需要的数据
@@ -18,9 +19,9 @@ class Slidepic extends Model
   */
  public function getlist($page=1,$num=25,$search=null,$sort='',$sortway='asc'){
  	$limit=(int)$page.','.(int)$num;
- 	$searchtype=array('alt');
+ 
  	$querysql=Db::table($this->table)->limit($limit);
- 	
+ 	$conditionis=[];
  	if($search){
  		foreach($this->searchtype as $key=>$val){
  			$conditionis [$val] = [
@@ -28,6 +29,7 @@ class Slidepic extends Model
  			'%' . $search . '%'
  					];
  		}
+ 		
  		$querysql->whereOr ( $conditionis );
  	}
  	if($sort&&in_array($sortway,array('desc','asc'))){
@@ -54,14 +56,32 @@ class Slidepic extends Model
  public function getconcount($search){
  	if($search){
  		
- 			$conditionis[] = ['alt',
+ 			foreach($this->searchtype as $key=>$val){
+ 			$conditionis [$val] = [
  			'like',
  			'%' . $search . '%'
  					];
+ 		}
  		
  		return Db::table($this->table)->where ( $conditionis )->count();
  	}
  	return 0;
+ }
+ /**
+  * 获取网站图片详细信息
+  */
+ public function getdetail($id){
+ 	
+ 	$res=$this->where('id',(int)$id)->find();
+ 	if($res){
+ 		if(ENABLE_SSL){
+ 			$res['full_url']=HTTPS_SERVER.'/images'.$res['image'];
+ 		}else{
+ 			$res['full_url']=HTTP_SERVER.'/images'.$res['image'];
+ 		}
+ 	}
+ 	return $res;
+ 	
  }
  
 }

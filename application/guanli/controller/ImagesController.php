@@ -18,7 +18,7 @@ class ImagesController extends BasicController {
 
 	public function index()
 	{
-		echo '999';
+
 	}
 	/**
 	 * 获取轮播图片列表
@@ -41,6 +41,21 @@ class ImagesController extends BasicController {
 		}
 		tablereturn(true, null, 0, $list, $draw, $count, $count);
 	}
+	/**
+	 * 获取图片详细数据
+	 * @param int $_POST['id']
+	 * */
+	public function getdetail(){
+		$id = input ( '?post.id' ) && input ( 'post.id' ) ? (int)input ( 'post.id' ) : 0;
+		if(!$id){
+			msgput(false,'id is empty',1);
+		}
+		$slidemodel=new Slidepic();
+	
+		$res=$slidemodel->getdetail($id);
+		msgput(true,null,0,$res);
+	}
+	
 
 	
 }
