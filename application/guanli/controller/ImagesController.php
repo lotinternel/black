@@ -55,6 +55,13 @@ class ImagesController extends BasicController {
 		$res=$slidemodel->getdetail($id);
 		msgput(true,null,0,$res);
 	}
+	/**
+	 * 保存图片
+	 */
+	public function save(){
+		$data = input ( 'post.' );
+		
+	}
 	
 
 	
