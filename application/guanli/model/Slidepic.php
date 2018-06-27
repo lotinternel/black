@@ -83,5 +83,22 @@ class Slidepic extends Model
  	return $res;
  	
  }
+ /**
+  * 保存图片数据
+  * @param array $item
+  * @return integer 新增数据的id
+  */
+ public function saveitem($item){
+ 
+ 	if(isset($item['id'])&&$item['id']){//更新
+ 		$this->allowField(['name','url','image','flag','sort','alt'])->save($item, ['id' => $item['id']]);
+ 	return $item['id'];
+ 	}else{
+ 		$this->data($item);
+ 		$this->allowField(true)->isUpdate(false)->save();
+ 		return $this->id;
+ 	}
+ 	
+ }
  
 }

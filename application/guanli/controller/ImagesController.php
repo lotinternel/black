@@ -11,6 +11,7 @@ use app\common\model\Products;
 use app\common\model\Categories;
 use app\guanli\model\Slidepic;
 use think\Request;
+use think\Loader;
 
 class ImagesController extends BasicController {
 	
@@ -60,7 +61,16 @@ class ImagesController extends BasicController {
 	 */
 	public function save(){
 		$data = input ( 'post.' );
+		$validate = Loader::validate('ImagesVali');
+		if(!$validate->check($data)){//验证提交的数据
+				
+			msgPut(false,$validate->getError(),1);
+		}
+		$imagemodel=new Slidepic();
 		
+		
+		$id=$imagemodel->saveitem($data);
+		msgput(true,null,0,$id);
 	}
 	
 
