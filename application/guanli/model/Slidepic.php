@@ -100,5 +100,8 @@ class Slidepic extends Model
  	}
  	
  }
+ public function deleteitem($id){
+ 	$this::destroy(['id' => $id]);
+ }
  
 }

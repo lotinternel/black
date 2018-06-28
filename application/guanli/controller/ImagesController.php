@@ -72,6 +72,18 @@ class ImagesController extends BasicController {
 		$id=$imagemodel->saveitem($data);
 		msgput(true,null,0,$id);
 	}
+	/**
+	 * 根据id删除数据
+	 */
+	public function deleteitem(){
+		$id = input ( '?post.id' ) && input ( 'post.id' ) ? (int)input ( 'post.id' ) : 0;
+		if(!$id){
+			msgput(false,'id is empty',1);
+		}
+		$imagemodel=new Slidepic();
+		$imagemodel->deleteitem($id);
+		msgput(true);
+	}
 	
 
 	
