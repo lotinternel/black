@@ -100,7 +100,11 @@ class Slidepic extends Model
  	}
  	
  }
- public function deleteitem($id){
+/**
+ * 根据id删除图片数据
+ * @param int $id 图片数据id
+ */
+ public function deleteitem(int $id){
  	$this::destroy(['id' => $id]);
  }
  
