@@ -120,12 +120,13 @@ EOD;
 			$tokenmodel->save();
 			
 			$menuarr=$worker->getmenubygroupid($res['group']);
-			if(Config::get('app_debug')){
+			if(ENABLE_SSL){
+				$fileapi=HTTPS_SERVER.'/ueapi/';
+				$ueapi=HTTPS_SERVER.'/ueapi/';
+				
+			}else{
 				$fileapi=HTTP_SERVER.'/fileapi/';
 				$ueapi=HTTP_SERVER.'/ueapi/';
-			}else{
-				$fileapi=HTTPS_SERVER.'/ueapi/';
-				$ueapi=HTTP_SERVERS.'/ueapi/';
 			}
 			
 			
