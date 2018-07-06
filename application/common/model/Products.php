@@ -3,6 +3,7 @@ namespace app\common\model;
 
 use think\Model;
 use think\Db;
+use think\Env;
 
 class Products extends Model
 {
@@ -48,7 +49,7 @@ class Products extends Model
  	}
  	$result=$querysql->select();
  	foreach($result as $k=>&$v){
- 		if(ENABLE_SSL){
+ 		if(Env::get('site.ssl')){
  			$v['products_image_url']=HTTPS_SERVER.'/images/'.$v['products_image'];
  		}else{
  			$v['products_image_url']=HTTP_SERVER.'/images/'.$v['products_image'];

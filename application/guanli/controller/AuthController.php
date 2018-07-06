@@ -7,7 +7,7 @@ use app\guanli\model\Workers;
 use \Firebase\JWT\JWT;
 use app\common\model\Token;
 use think\Request;
-use think\Config;
+use think\Env;
 
 class AuthController extends BaseController {
 	private $privateKey = <<<EOD
@@ -120,7 +120,7 @@ EOD;
 			$tokenmodel->save();
 			
 			$menuarr=$worker->getmenubygroupid($res['group']);
-			if(ENABLE_SSL){
+			if(Env::get('site.ssl')){
 				$fileapi=HTTPS_SERVER.'/ueapi/';
 				$ueapi=HTTPS_SERVER.'/ueapi/';
 				
