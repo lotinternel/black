@@ -121,7 +121,7 @@ EOD;
 			
 			$menuarr=$worker->getmenubygroupid($res['group']);
 			if(Env::get('site.ssl')){
-				$fileapi=HTTPS_SERVER.'/ueapi/';
+				$fileapi=HTTPS_SERVER.'/fileapi/';
 				$ueapi=HTTPS_SERVER.'/ueapi/';
 				
 			}else{
@@ -129,9 +129,10 @@ EOD;
 				$ueapi=HTTP_SERVER.'/ueapi/';
 			}
 			
-			
+			$data=array('token'=>$jwt,'menu'=>$menuarr,'fileapi'=>$fileapi,'ueapi'=>$ueapi);
 			//$decoded = JWT::decode($jwt, $key, array('HS256'));
-			msgput(true, null, 0,array('token'=>$jwt,'menu'=>$menuarr,'fileapi'=>$fileapi,'ueapi'=>$ueapi));
+			
+			msgput(true, null, 0,$data);
 		}else{
 			$msg=lang('pass_error');
 			msgput(false, $msg, 2);
