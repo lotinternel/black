@@ -244,6 +244,19 @@ class ProductsController extends BasicController {
 		$res=array('products_id'=>$data['products_id']);
 		msgput(true,null,0,$res);
 	}
+	/**
+	 * 删除产品
+	 */
+	public function delete(){
+		if (!Request::instance()->isDelete()){//判断是否为delete请求
+			msgPut(false,lang('method error'),1);
+		}
+		$id=(int)Request::instance()->param('id');
+		
+		$productmodel=new Products();
+		msgput(true);
+			
+	}
 }
 
 ?>

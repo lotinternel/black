@@ -152,6 +152,10 @@ class Products extends Model
  	return $full;
  }
  
+ 
+ public function deleteit($id){
+ 	$this::destroy(['products_id' => $id]);//删除基本数据
+ }
 
  
  
