@@ -152,9 +152,20 @@ class Products extends Model
  	return $full;
  }
  
- 
+ /**
+  * 根据id删除产品数据
+  * @param integer $id
+  * @return boolean
+  */
  public function deleteit($id){
  	$this::destroy(['products_id' => $id]);//删除基本数据
+ 	$productdescmodel=new ProductsDescription();
+ 	$productdescmodel->where('products_id',$id)->delete();//删除产品描述
+ 	$metatagsproductdesc=new MetaTagsProductsDescription();
+ 	$metatagsproductdesc->where('products_id',$id)->delete();//删除产品meta tag
+ 	$producttocatelogue=new ProductsToCategories();
+ 	$producttocatelogue->where('products_id',$id)->delete();//删除产品和目录的对应关系
+ 	return true;
  }
 
  

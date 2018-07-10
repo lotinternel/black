@@ -6,5 +6,6 @@ return [
 	'no_token'=>'not have token',
 	'invalid_token'=>'token invalid',
 	'require_param'=>'requier param is empty',
-	'add_detail_fail'=>'add product detail fail'
+	'add_detail_fail'=>'add product detail fail',
+	'id_is_error'=>'id is error',
 ];
