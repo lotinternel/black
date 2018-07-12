@@ -10,8 +10,9 @@ class Categories extends Model
 	 protected $categoriesdesc=TABLE_CATEGORIES_DESCRIPTION;
 	 
 	 public function getcatlist(){
-	 	//取出所有子目录
-	 	$res=Db::table($this->table)->alias('c')->field('c.categories_id,c.categories_image,c.categories_status,c.parent_id,cd.categories_name')->join($this->categoriesdesc .' cd','c.categories_id=cd.categories_id','LEFT')->where('c.parent_id','<>','0')->select();
+	 	
+	 	//取出所有目录
+	 	$res=Db::table($this->table)->alias('c')->field('c.categories_id,c.categories_image,c.categories_status,c.parent_id,cd.categories_name')->join($this->categoriesdesc .' cd','c.categories_id=cd.categories_id','LEFT')->where('c.categories_status',1)->select();
 	 	$parentlist=$this->getparentlist();
 	
 	 	foreach($res as $key=>&$val){//加入父类
