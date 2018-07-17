@@ -252,8 +252,11 @@ class ProductsController extends BasicController {
 			msgPut(false,lang('method error'),1);
 		}
 		$id=(int)Request::instance()->param('id');
-		
+		if(!$id){
+			msgPut(false,lang('id_is_error'),2);
+		}
 		$productmodel=new Products();
+		$productmodel->deleteit($id);//删除数据
 		msgput(true);
 			
 	}
