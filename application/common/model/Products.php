@@ -165,6 +165,8 @@ class Products extends Model
  	$metatagsproductdesc->where('products_id',$id)->delete();//删除产品meta tag
  	$producttocatelogue=new ProductsToCategories();
  	$producttocatelogue->where('products_id',$id)->delete();//删除产品和目录的对应关系
+ 	$proamodel=new ProductsAttributes();
+ 	$proamodel->where('products_id',$id)->delete();
  	return true;
  }
 
