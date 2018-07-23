@@ -169,6 +169,23 @@ class Products extends Model
  	$proamodel->where('products_id',$id)->delete();
  	return true;
  }
+ /**
+  * 批量删除
+  * @param array $ids
+  * @return boolean
+  */
+ public function bathdelete($ids){
+ 	$this::destroy($ids);//删除基本数据
+ 	$productdescmodel=new ProductsDescription();
+ 	$productdescmodel->whereIn('products_id',$ids)->delete();//删除产品描述
+ 	$metatagsproductdesc=new MetaTagsProductsDescription();
+ 	$metatagsproductdesc->whereIn('products_id',$ids)->delete();//删除产品meta tag
+ 	$producttocatelogue=new ProductsToCategories();
+ 	$producttocatelogue->whereIn('products_id',$ids)->delete();//删除产品和目录的对应关系
+ 	$proamodel=new ProductsAttributes();
+ 	$proamodel->whereIn('products_id',$ids)->delete();
+ 	return true;
+ }
 
  
  

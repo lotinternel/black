@@ -260,6 +260,27 @@ class ProductsController extends BasicController {
 		msgput(true);
 			
 	}
+	/**
+	 * 批量删除产品
+	 */
+	public function deletes(){
+		if (!Request::instance()->isDelete()){//判断是否为delete请求
+			msgPut(false,lang('method error'),1);
+		}
+		$ids=Request::instance()->param('ids');
+		if(!$ids){
+			msgPut(false,lang('id_is_error'),2);
+		}
+		$idarr=json_decode($ids,true);
+		if(!$idarr){
+			msgPut(false,lang('json decode ids error'),3);
+		}
+		msgput(true);
+		$productmodel=new Products();
+		$productmodel->bathdelete($idarr);//批量删除
+		msgput(true);
+		
+	}
 }
 
 ?>
