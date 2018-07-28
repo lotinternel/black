@@ -21,6 +21,7 @@ class ProductsDescription extends Model
     	if(!isset($data['language_id'])){
     		$data['language_id']=$language_id;
     	}
+    	
     	$this->data($data);
     	$this->allowField(['products_id','language_id','products_name','products_description'])->save();
     	

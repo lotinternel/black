@@ -34,8 +34,9 @@ class ProductsController extends BasicController {
 		$search = input ( '?post.search' ) && input ( 'post.search' ) ? input ( 'post.search' ) : null;
 		$sort=input ( '?post.sort' ) && input ( 'post.sort' ) ? input ( 'post.sort' ) : '';
 		$sortway=input ( '?post.sortway' ) && input ( 'post.sortway' ) ? input ( 'post.sortway' ) : '';
+		$catalogue=input ( '?post.catalogue' ) && input ( 'post.catalogue' ) ? (int)input ( 'post.catalogue' ) : 0;
 		$productmodel=new Products();
-		$list=$productmodel->getlist($start,$length,$search,$sort,$sortway);
+		$list=$productmodel->getlist($start,$length,$search,$sort,$sortway,$catalogue);
 		if($search){
 			$count=$productmodel->getconcount($search);
 		}else{
@@ -275,7 +276,7 @@ class ProductsController extends BasicController {
 		if(!$idarr){
 			msgPut(false,lang('json decode ids error'),3);
 		}
-		msgput(true);
+		//msgput(true);
 		$productmodel=new Products();
 		$productmodel->bathdelete($idarr);//批量删除
 		msgput(true);

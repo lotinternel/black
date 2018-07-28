@@ -20,11 +20,14 @@ class Products extends Model
   * @param string $search 搜索关键词
   * @param string $sort排序
   */
- public function getlist($page=1,$num=25,$search=null,$sort='',$sortway='asc'){
+ public function getlist($page=1,$num=25,$search=null,$sort='',$sortway='asc',$catalogue=0){
  	$limit=(int)$page.','.(int)$num;
  	$searchtype=array('p.products_model','pd.products_name');
  	$querysql=Db::table($this->table)->alias('p')->field('p.products_id,p.products_quantity,p.products_model,p.products_image,p.products_price,pd.products_name')->join(TABLE_PRODUCTS_DESCRIPTION .' pd','p.products_id=pd.products_id and pd.language_id=1')->limit($limit);
  	
+ 	if($catalogue>0){
+ 		$querysql->where('p.master_categories_id',$catalogue);
+ 	}
  	if($search){
  		foreach($this->searchtype as $key=>$val){
  			$conditionis [$val] = [
