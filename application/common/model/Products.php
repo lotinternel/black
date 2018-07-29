@@ -127,7 +127,8 @@ class Products extends Model
   * @param unknown $data
   */
  public function updateitembyid($id,$data){
- 	$data['products_last_modified']=array('exp', 'NOW()');
+ 	$data['products_last_modified']=['NOW()'];
+ 	
  	$this->allowField(['products_type','products_quantity','products_model','products_image','products_price','products_virtual','products_last_modified','products_weight','products_status','master_categories_id','origin_url','commission_rate'])->save($data, ['id' => (int)$id]);
  	
  }

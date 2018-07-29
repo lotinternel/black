@@ -9,6 +9,7 @@
 // | Author: 流年 <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 use think\Log;
+use think\App;
 // 应用公共文件
 function msgput($status, $msg = null, $code = 0, $data = null) {
 	header("Content-type: application/json; charset=utf-8");
@@ -144,7 +145,7 @@ function download_image($image)
 
 			$new = $dirs.$time. $rand . "." . $ext;
 
-			$base = $_SERVER["DOCUMENT_ROOT"] . DIRECTORY_SEPARATOR."images/".$new;
+			$base = IMAGE_PATH.$new;
 			$dirname = dirname($base);
 
 			if (!file_exists($dirname) && !mkdir($dirname, 0777, true)) {
@@ -162,7 +163,7 @@ function download_image($image)
 		}
 	}catch(Exception $e){
 		$msg=date('Y-m-d H:i:s') . ' upload image error:' . $e->getMessage() . PHP_EOL;
-		Log::ERROR($msg);	
+		Log::record($msg);	
 			
 		//error_log(date('Y-m-d H:i:s') . ' upload image error:' . $e->getMessage() . PHP_EOL, 3, $error_log);
 		return false;

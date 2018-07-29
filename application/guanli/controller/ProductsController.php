@@ -15,6 +15,7 @@ use app\common\model\MetaTagsProductsDescription;
 use app\common\model\Productimage;
 use app\common\model\ProductsToCategories;
 use think\Log;
+use app\common\model\UploadAws;
 
 class ProductsController extends BasicController {
 
@@ -186,7 +187,7 @@ class ProductsController extends BasicController {
 		msgput(true);
 	}
 	/**
-	 * 更新产品
+	 * 保存更新产品
 	 * 
 	 */
 	public function save(){
@@ -207,8 +208,10 @@ class ProductsController extends BasicController {
 		$metatagsproductdesc=new MetaTagsProductsDescription();
 		$producttocatelogue=new ProductsToCategories();
 	
-		if(isset($data['products_id'])){//如果存在产品id，更新操作
+		if(isset($data['products_id'])&&$data['products_id']){//如果存在产品id，更新操作
+			
 			$productmodel->updateitembyid($data['products_id'],$data);//更新产品基本信息
+						
 			$productdescmodel->updateitemdesc($data['products_id'],$data);//更新产品描述
 			$metatagsproductdesc->updatemetabyid($data['products_id'],$data['meta']);//更新产品seo信息
 			
@@ -242,7 +245,8 @@ class ProductsController extends BasicController {
 				$productimage->updateimage($data['products_id'],$data['image_list']);//保存多条产品图片数据
 			}
 		}
-		$res=array('products_id'=>$data['products_id']);
+		$descmodel=$productdescmodel->field('products_description')->where('products_id',$data['products_id'])->find();
+		$res=array('products_id'=>$data['products_id'],'products_description'=>$descmodel['products_description']);
 		msgput(true,null,0,$res);
 	}
 	/**

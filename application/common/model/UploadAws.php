@@ -4,6 +4,8 @@ namespace app\common\model;
 use think\Model;
 use Aws\S3\S3Client;
 use Aws\S3\Exception\S3Exception;
+use think\Log;
+use app\common\model\UploadAws;
 
 
 class UploadAws extends Model
@@ -17,8 +19,9 @@ class UploadAws extends Model
 		if(count($cdnarr)<2){
 			return;
 		}
-	 	$base_url = HTTPS_CATALOG_SERVER;
-	 	$cdn = "/https:\/\/img\.'.$cdnarr[1].'\.com/";
+		
+	 	//$base_url = HTTPS_CATALOG_SERVER;
+	 	$cdn = "/https:\/\/img\.".$cdnarr[1]."\.com/";
 	 	
 	 	$filepatten = "/http/";
 	 	//$patten = "/" . $_SERVER ['HTTP_HOST'] . "/";
@@ -33,14 +36,15 @@ class UploadAws extends Model
 	 				continue;
 	 			}
 	 				
-	 			$new = download_image ( $image1 );
-	 			$key = "images/" . $new;
-	 			if ($new != null) {
+	 			$newfile = download_image ( $image1 );
+	 			
+	 			$key="images/" . $newfile;
+	 			if ($newfile != null) {
 	 	
-	 				if (CDNFILE) {
+	 				if (ENABLE_CDNFILE) {
 	 					$bucket = CDNBUCKET;
 	 					// $key=str_replace(DIR_FS_CATALOG, '', $dest_name);
-	 					$dest_name = DIR_FS_CATALOG . $key;
+	 					//$dest_name = DIR_FS_CATALOG . $key;
 	 						
 	 					$s3 = S3Client::factory ( array (
 	 							'credentials' => array (
@@ -51,9 +55,9 @@ class UploadAws extends Model
 	 							// 'signature' => 'v4',
 	 							'version' => "2006-03-01"
 	 					) );
-	 	
+	 					$dest_name=IMAGE_PATH.$newfile;
 	 					if (file_exists ( $dest_name )) {
-	 	
+	 						
 	 						try {
 	 								
 	 							// Upload data.
@@ -64,20 +68,20 @@ class UploadAws extends Model
 	 									'ACL' => 'public-read'
 	 							) );
 	 								
-	 							if ($result ['ObjectURL']) { // 如果上传成功则添加数据库
+	 							if ($result ['ObjectURL']) { // 如果上传成功
 	 								 
 	 								// saveimagetobucket($key);
 	 								chmod ( $dest_name, 0777 );
 	 								unlink ( $dest_name );
 	 								// $result['ObjectURL'];
-	 								$new = CDNDOMAIN . "images/" . $new;
+	 								$new = CDNDOMAIN . "images/" . $newfile;
 	 								$key = $new;
 	 							}
 	 						} catch ( S3Exception $e ) {
-	 							$time = time ();
-	 							$error_log = DIR_FS_CATALOG . 'logs/amazonuploadfile_' . $time . '.log'; // 设置错误日志
+	 							//$time = time ();
+	 							//$error_log = DIR_FS_CATALOG . 'logs/amazonuploadfile_' . $time . '.log'; // 设置错误日志
 	 							// echo $e->getMessage() . "\n";
-	 							error_log ( date ( 'Y-m-d H:i:s' ) . ' upload image error:' . $e->getMessage () . PHP_EOL, 3, $error_log );
+	 							Log::record( date ( 'Y-m-d H:i:s' ) . ' upload image error:' . $e->getMessage () . PHP_EOL);
 	 						}
 	 					}
 	 				}
