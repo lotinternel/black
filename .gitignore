@@ -5,3 +5,4 @@ thinkphp
 .env
 /public/uploads/*
 .buildpath
+/public/images/*

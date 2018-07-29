@@ -20,11 +20,14 @@ class Products extends Model
   * @param string $search 搜索关键词
   * @param string $sort排序
   */
- public function getlist($page=1,$num=25,$search=null,$sort='',$sortway='asc'){
+ public function getlist($page=1,$num=25,$search=null,$sort='',$sortway='asc',$catalogue=0){
  	$limit=(int)$page.','.(int)$num;
  	$searchtype=array('p.products_model','pd.products_name');
  	$querysql=Db::table($this->table)->alias('p')->field('p.products_id,p.products_quantity,p.products_model,p.products_image,p.products_price,pd.products_name')->join(TABLE_PRODUCTS_DESCRIPTION .' pd','p.products_id=pd.products_id and pd.language_id=1')->limit($limit);
  	
+ 	if($catalogue>0){
+ 		$querysql->where('p.master_categories_id',$catalogue);
+ 	}
  	if($search){
  		foreach($this->searchtype as $key=>$val){
  			$conditionis [$val] = [
@@ -124,7 +127,8 @@ class Products extends Model
   * @param unknown $data
   */
  public function updateitembyid($id,$data){
- 	$data['products_last_modified']=array('exp', 'NOW()');
+ 	$data['products_last_modified']=['NOW()'];
+ 	
  	$this->allowField(['products_type','products_quantity','products_model','products_image','products_price','products_virtual','products_last_modified','products_weight','products_status','master_categories_id','origin_url','commission_rate'])->save($data, ['id' => (int)$id]);
  	
  }
@@ -167,6 +171,23 @@ class Products extends Model
  	$producttocatelogue->where('products_id',$id)->delete();//删除产品和目录的对应关系
  	$proamodel=new ProductsAttributes();
  	$proamodel->where('products_id',$id)->delete();
+ 	return true;
+ }
+ /**
+  * 批量删除
+  * @param array $ids
+  * @return boolean
+  */
+ public function bathdelete($ids){
+ 	$this::destroy($ids);//删除基本数据
+ 	$productdescmodel=new ProductsDescription();
+ 	$productdescmodel->whereIn('products_id',$ids)->delete();//删除产品描述
+ 	$metatagsproductdesc=new MetaTagsProductsDescription();
+ 	$metatagsproductdesc->whereIn('products_id',$ids)->delete();//删除产品meta tag
+ 	$producttocatelogue=new ProductsToCategories();
+ 	$producttocatelogue->whereIn('products_id',$ids)->delete();//删除产品和目录的对应关系
+ 	$proamodel=new ProductsAttributes();
+ 	$proamodel->whereIn('products_id',$ids)->delete();
  	return true;
  }
 

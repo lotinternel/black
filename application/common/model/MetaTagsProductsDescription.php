@@ -24,7 +24,7 @@ class MetaTagsProductsDescription extends Model
      * @param array $meta
      */
     public function updatemetabyid($id,$data,$language_id=1){
-    	return $this->allowField(['metatags_title','metatags_keywords','metatags_description'])->save($data, ['id' => (int)$id,'language_id'=>$language_id]);
+    	return $this->allowField(['metatags_title','metatags_keywords','metatags_description'])->save($data, ['products_id' => (int)$id,'language_id'=>$language_id]);
     }
     /**
      * 
