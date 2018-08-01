@@ -8,6 +8,7 @@ use \Firebase\JWT\JWT;
 use app\common\model\Token;
 use think\Request;
 use think\Env;
+use app\guanli\model\WorkersMenu;
 
 class AuthController extends BaseController {
 	private $privateKey = <<<EOD
@@ -38,6 +39,9 @@ N/ieqwJQaQkh/aNwVQIDAQAB
 -----END PUBLIC KEY-----
 EOD;
 	
+	const WORKER_SUPPER = 1;
+	
+	const WORKER_NORMAL = 2;
 	
 	
 	function __construct() {
@@ -119,14 +123,21 @@ EOD;
 					]);
 			$tokenmodel->save();
 			
-			$menuarr=$worker->getmenubygroupid($res['group']);
+			if (isset($res['type']) && self::WORKER_SUPPER == (int)$res['type']) {
+			    //超级管理员管理所有有效menu
+			    $menu = new WorkersMenu();
+			    $menuarr = $menu->getMenus();
+			} else {
+			    $menuarr=$worker->getmenubygroupid($res['group']);
+			}
+			
 			if(Env::get('site.ssl')){
-				$fileapi=HTTPS_SERVER.'/fileapi/';
-				$ueapi=HTTPS_SERVER.'/ueapi/';
-				
+			    $fileapi=HTTPS_SERVER.'/fileapi/';
+			    $ueapi=HTTPS_SERVER.'/ueapi/';
+			    
 			}else{
-				$fileapi=HTTP_SERVER.'/fileapi/';
-				$ueapi=HTTP_SERVER.'/ueapi/';
+			    $fileapi=HTTP_SERVER.'/fileapi/';
+			    $ueapi=HTTP_SERVER.'/ueapi/';
 			}
 			
 			$data=array('token'=>$jwt,'menu'=>$menuarr,'fileapi'=>$fileapi,'ueapi'=>$ueapi);
