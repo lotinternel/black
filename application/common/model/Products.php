@@ -51,6 +51,7 @@ class Products extends Model
  		}
  	}
  	$result=$querysql->select();
+ 	
  	foreach($result as $k=>&$v){
  		if(Env::get('site.ssl')){
  			$v['products_image_url']=HTTPS_SERVER.'/images/'.$v['products_image'];
@@ -92,11 +93,11 @@ class Products extends Model
  			$res['products_status']=false;
  		}
  		if($res['products_image']){//返回图像绝对地址
- 			
+ 			$imgpath=substr(DIR_WS_IMAGES,0,strlen(DIR_WS_IMAGES)-1);
  			if(ENABLE_SSL){
- 			$res['full_products_image']=HTTPS_SERVER.'/'.DIR_WS_IMAGES.HTTPS_SERVER.'/'.DIR_WS_IMAGES.$res['products_image'];
+ 			$res['full_products_image']=HTTPS_SERVER.'/'.$imgpath.$res['products_image'];
  			}else{
- 				$res['full_products_image']=HTTP_SERVER.'/'.DIR_WS_IMAGES.$res['products_image'];
+ 				$res['full_products_image']=HTTP_SERVER.'/'.$imgpath.$res['products_image'];
  			}
  		}
 
@@ -128,7 +129,11 @@ class Products extends Model
   */
  public function updateitembyid($id,$data){
  	$data['products_last_modified']=['NOW()'];
- 	
+ 	if(isset($data['products_image'])&&$data['products_image']){
+ 		if(substr( $data['products_image'], 0, 1)=='/'){
+ 			$data['products_image']=substr($data['products_image'],1);//删除第一个字符
+ 		}
+ 	}
  	$this->allowField(['products_type','products_quantity','products_model','products_image','products_price','products_virtual','products_last_modified','products_weight','products_status','master_categories_id','origin_url','commission_rate'])->save($data, ['id' => (int)$id]);
  	
  }

@@ -230,6 +230,11 @@ class ProductsController extends BasicController {
 			if(!isset($data['commission_rate'])||!$data['commission_rate']){
 				$data['commission_rate']=10;
 			}
+			if(isset($data['products_image'])&&$data['products_image']){
+				if(substr( $data['products_image'], 0, 1)=='/'){
+					$data['products_image']=substr($data['products_image'],1);//删除第一个字符
+				}
+			}
 			$productid=$productmodel->saveitem($data);//添加产品基本信息
 			if(!$productid){
 				msgPut(false,lang('add_detail_fail'),1);
