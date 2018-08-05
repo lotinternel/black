@@ -9,7 +9,7 @@ use think\Validate;
 
 class WorkersGroupVali extends Validate {
 	protected $rule = [
-	'name'=>'require',
+	'group_name'=>'require',
 	'menu'=>'require',
 	];
 	

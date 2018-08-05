@@ -54,7 +54,9 @@ class Workers extends Model {
 	 */
 	public function getlist($page=1,$num=25,$search=null,$sort='',$sortway='asc'){
 	    $limit=(int)$page.','.(int)$num;
-	    $querysql=Db::table($this->table)->alias('w')->field('w.id,w.name,w.type,w.group,wg.name as group_name')->join(TABLE_WORKERS_GROUP .' wg','w.group=wg.id', 'left')->limit($limit);
+	  
+	    $querysql=Db::table($this->table)->alias('w')->field('w.id,w.name,w.type,w.group,wg.group_name')->join(TABLE_WORKERS_GROUP .' wg','w.group=wg.id', 'left')->limit($limit);
+		//print_r($querysql);exit();
 	    $searchtype = array('w.id','w.name');
 	    if($search){
 	        foreach($searchtype as $key=>$val){

@@ -63,7 +63,7 @@ class WorkersGroup extends Model
       * 获取所有组，为select提供
       * */
      public function getAllGroups() {
-         return Db::table($this->table)->field('id,name,menu,workers_authority')->select();
+         return Db::table($this->table)->field('id,group_name,menu,workers_authority')->select();
      }
      
      /**
