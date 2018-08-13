@@ -14,15 +14,15 @@ return [
     // 数据库类型
     'type'            => 'mysql',
     // 服务器地址
-    'hostname'        => Env::get('database.hostname'),
+    'hostname'        => Env::get('database.hostname','localhost'),
    // 数据库名
-    'database'        => Env::get('database.database'),
+    'database'        => Env::get('database.database','keramarket'),
     //用户名
-    'username'        => Env::get('database.username'),
+    'username'        => Env::get('database.username','kaermarter'),
    // 密码
-    'password'        => Env::get('database.password'),
+    'password'        => Env::get('database.password','!l8B79wC^ABJ45'),
    // 端口
-    'hostport'        => Env::get('database.hostport'),
+    'hostport'        => Env::get('database.hostport','3306'),
     // 连接dsn
     'dsn'             => '',
     // 数据库连接参数

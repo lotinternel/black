@@ -6,6 +6,7 @@ use app\guanli\controller\BasicController;
 use app\common\model\Products;
 use app\common\model\Categories;
 use think\Request;
+use app\guanli\model\Workers;
 
 class FilesController extends BasicController {
 	
@@ -13,10 +14,13 @@ class FilesController extends BasicController {
 
 	public function index()
 	{
-		echo '999';
+		
 	}
 	
 	public function upload(){
+		
+		$this->checkpermission('UF');//检查用户是否有上传文件的权限
+		
 		$file = request()->file('image');
 	
 		if($file){

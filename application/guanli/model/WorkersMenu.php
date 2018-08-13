@@ -12,7 +12,7 @@ class WorkersMenu extends Model
      public function getList($status = '') {
          $select = Db::table($this->table);
          if (!empty($status)) $select->where('status', $status);
-         $allmenuobj = $select->select();
+         $allmenuobj = $select->cache(true)->select();
          
          $allmenu = array();
          foreach ( $allmenuobj as $key => $value ) {

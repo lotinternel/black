@@ -25,6 +25,7 @@ class ImagesController extends BasicController {
 	 * 获取轮播图片列表
 	 */
 	public function getlist(){
+		$this->checkpermission('QI');//检查用户是否有上传文件的权限
 		$start = input ( '?post.start' ) && input ( 'post.start' ) ? input ( 'post.start' ) : 0;
 		$length = input ( '?post.length' ) && input ( 'post.length' ) ? input ( 'post.length' ) : 25;
 		

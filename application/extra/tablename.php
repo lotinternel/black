@@ -17,6 +17,7 @@ define('TABLE_PRODUCTSOPTIONSTYPES' , TABLE_PREFIX.'products_options_types');
 define('TABLE_META_TAGS_PRODUCTS_DESCRIPTION' , TABLE_PREFIX.'meta_tags_products_description');
 define('TABLE_PRODUCTSTOCATEGORIES' , TABLE_PREFIX.'products_to_categories');
 define('TABLE_SLIDEPIC' , TABLE_PREFIX.'slidepic');
+define('TABLE_WORKERS_PERMISSION' , TABLE_PREFIX.'workers_permission');
 
  
  

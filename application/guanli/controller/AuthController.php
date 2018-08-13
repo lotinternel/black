@@ -79,6 +79,9 @@ EOD;
 		msgput(false,$msg,2);
 	}
 	}
+	/**
+	 * 验证账号密码
+	 */
 	public function getauth(){
 		$username=input('?post.username')&&input('post.username')?input('post.username'):null;
 		$password=input('?post.password')&&input('post.password')?input('post.password'):null;
@@ -128,7 +131,9 @@ EOD;
 			    $menu = new WorkersMenu();
 			    $menuarr = $menu->getMenus();
 			} else {
-			    $menuarr=$worker->getmenubygroupid($res['group']);
+				$usermenu=json_decode($res['workers_menu'],true);
+			    $menuarr=$worker->getmenunamebyids($usermenu);
+			
 			}
 			
 			if(Env::get('site.ssl')){
