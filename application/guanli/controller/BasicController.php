@@ -33,6 +33,7 @@ class BasicController extends BaseController{
 	}
 	
 	public function checkpermission($perrmission=''){
+		
 		$workermodel=new Workers();
 		$res=$workermodel->checkpermission($this->workerid,$perrmission);
 		if(!$res){

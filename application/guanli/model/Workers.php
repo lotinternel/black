@@ -169,16 +169,21 @@ class Workers extends Model {
 		if(!$userid||!$permission){
 			return false;
 		}
-		$permissnamearr=Db::table(TABLE_WORKERS_PERMISSION)->field('workers_permission_id')->where('workers_permission_code',$permission)->find();
-		if(!$permissnamearr){//说明指定的权限不存在
-			return false;
-		}
+		
+	
 		$res=Db::table($this->table)->field('workers_permission,type')->where('id',(int)$userid)->find();
 		
 		if($res){
 			if($res['type']==1){//超级管理员不必检查
 				return true;
 			}
+			
+			$permissnamearr=Db::table(TABLE_WORKERS_PERMISSION)->field('workers_permission_id')->where('workers_permission_code',$permission)->find();
+			
+			if(!$permissnamearr){//说明指定的权限不存在
+				return false;
+			}
+			
 			$resarr=json_decode($res['workers_permission'],true);
 			if(in_array($permissnamearr['id'],$resarr)){
 				return true;
